@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Typography, Button, useTheme, Paper, CircularProgress, Alert } from '@mui/material';
 import { CloudUpload as CloudUploadIcon } from '@mui/icons-material';
+import pdfToText from 'react-pdftotext'
 
 const FileInput = () => {
   const [dragOver, setDragOver] = useState(false);
@@ -32,8 +33,16 @@ const FileInput = () => {
   // Handle file selection through input
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
+    console.log("h2");
     setFile(selectedFile);
   };
+
+  function extractText(event) {
+    const file = event.target.files[0];
+    pdfToText(file)
+        .then(text => console.log(text))
+        .catch(error => console.error("Text extraction failed", error));
+}
 
   // Handle Summarize Button click
   const handleSummarize = async () => {
@@ -122,7 +131,8 @@ const FileInput = () => {
           <input
             type="file"
             hidden
-            onChange={handleFileChange}
+            //onChange={handleFileChange}
+            onChange={extractText}
           />
         </Button>
 

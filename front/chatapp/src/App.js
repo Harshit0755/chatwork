@@ -31,7 +31,7 @@ const App = () => {
       <MaterializedHeader />
       <FileInput />
       {/* Wavy background at the bottom */}
-      <div className="wave-background"></div>
+      {/*<div className="wave-background"></div> */}
     </ThemeProvider>
   );
 };
