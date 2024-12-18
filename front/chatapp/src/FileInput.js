@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Button, useTheme, Paper, CircularProgress, Alert, IconButton } from '@mui/material';
 import { CloudUpload as CloudUploadIcon, InsertDriveFile as FileIcon } from '@mui/icons-material';
 import pdfToText from 'react-pdftotext';
+import './Shimmereffect.css';
 
 const FileInput = () => {
   const [dragOver, setDragOver] = useState(false);
@@ -36,7 +37,6 @@ const FileInput = () => {
     setFile(selectedFile);
   };
 
-<<<<<<< HEAD
   function extractText(event) {
     const file = event.target.files[0];
     // pdfToText(file)
@@ -44,8 +44,6 @@ const FileInput = () => {
     //     .catch(error => console.error("Text extraction failed", error));
 }
 
-=======
->>>>>>> c02104b98e52a00bc6e8306a9cafb68f60f186e5
   // Handle Summarize Button click
   const handleSummarize = async () => {
     if (!file) {
@@ -59,13 +57,11 @@ const FileInput = () => {
 
     try {
       // Simulating a file processing or summarization API call
-<<<<<<< HEAD
       const fileContent = await processFile(file);
-      pdfToText(selectedFile)
+      pdfToText(file)
         .then(text => setSummary(text))
         .catch(error => console.error("Text extraction failed", error));
       /* setSummary(fileContent); */
-=======
       await processFile(file);
       pdfToText(file)
         .then((text) => setSummary(text))
@@ -213,6 +209,7 @@ const FileInput = () => {
           <Typography variant="body1" color="textPrimary">
             Extracting text from PDF...
           </Typography>
+          <h1 className='shimmer'>Shimmer Text...</h1>
         </Box>
       )}
 
