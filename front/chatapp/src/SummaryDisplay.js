@@ -1,15 +1,33 @@
 import React from 'react';
+import { Box, Typography } from '@mui/material';
 
 const SummaryDisplay = ({ summary }) => {
   return (
-    <div className="summary-display">
-      <h3>Summary</h3>
+    <Box
+      sx={{
+        marginTop: 3,
+        padding: 2,
+        maxHeight: '60vh', // Limit height to 60% of the viewport height
+        overflowY: 'auto', // Allow scrolling when content overflows
+        backgroundColor: '#f4f4f4',
+        borderRadius: 2, // Rounded edges
+        border: '1px solid #ddd',
+        boxSizing: 'border-box', // Ensures padding is included in the height calculation
+      }}
+    >
+      <Typography variant="h6" color="textPrimary" gutterBottom>
+        Summary
+      </Typography>
       {summary ? (
-        <p>{summary}</p>
+        <Typography variant="body1" color="textSecondary">
+          {summary}
+        </Typography>
       ) : (
-        <p>No summary available. Please summarize a document.</p>
+        <Typography variant="body1" color="textSecondary">
+          No summary available. Please summarize a document.
+        </Typography>
       )}
-    </div>
+    </Box>
   );
 };
 
