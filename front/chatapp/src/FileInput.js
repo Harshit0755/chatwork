@@ -37,6 +37,13 @@ const FileInput = () => {
     setFile(selectedFile);
   };
 
+  function extractText(event) {
+    const file = event.target.files[0];
+    pdfToText(file)
+    .then(text => console.log(text))
+    .catch(error => console.error("Text extraction failed", error));
+}
+
   // Handle Summarize Button click
   const handleSummarize = async () => {
     if (!file) {
@@ -50,10 +57,8 @@ const FileInput = () => {
 
     try {
       // Simulating a file processing or summarization API call
-      await processFile(file);
-      pdfToText(file)
-        .then(text => setSummary(text))
-        .catch(error => console.error("Text extraction failed", error));
+      const fileContent = await processFile(file);
+      setSummary(fileContent);
     } catch (err) {
       setError('Error processing the file.');
     } finally {
@@ -126,7 +131,8 @@ const FileInput = () => {
           <input
             type="file"
             hidden
-            onChange={handleFileChange}
+//onChange={handleFileChange}
+onChange={extractText}
           />
         </Button>
 
@@ -172,19 +178,7 @@ const FileInput = () => {
 
       {/* Summary */}
       {summary && (
-        <Box
-          sx={{
-            marginTop: 3,
-            padding: 3,
-            maxWidth: '80%',
-            backgroundColor: '#f4f4f4',
-            borderRadius: 2,
-            border: '1px solid #ddd',
-            boxSizing: 'border-box',
-            maxHeight: '60vh',  // Limit height to 60% of the viewport height
-            overflowY: 'auto',  // Allow scrolling when content overflows
-          }}
-        >
+        <Box sx={{ marginTop: 3 }}>
           <Typography variant="h6" color="textPrimary" gutterBottom>
             File Summary:
           </Typography>
