@@ -37,13 +37,16 @@ const FileInput = () => {
     setFile(selectedFile);
   };
 
+<<<<<<< HEAD
   function extractText(event) {
     const file = event.target.files[0];
-    pdfToText(file)
-    .then(text => console.log(text))
-    .catch(error => console.error("Text extraction failed", error));
+    // pdfToText(file)
+    //     .then(text => console.log(text))
+    //     .catch(error => console.error("Text extraction failed", error));
 }
 
+=======
+>>>>>>> c02104b98e52a00bc6e8306a9cafb68f60f186e5
   // Handle Summarize Button click
   const handleSummarize = async () => {
     if (!file) {
@@ -57,8 +60,18 @@ const FileInput = () => {
 
     try {
       // Simulating a file processing or summarization API call
+<<<<<<< HEAD
       const fileContent = await processFile(file);
-      setSummary(fileContent);
+      pdfToText(selectedFile)
+        .then(text => setSummary(text))
+        .catch(error => console.error("Text extraction failed", error));
+      /* setSummary(fileContent); */
+=======
+      await processFile(file);
+      pdfToText(file)
+        .then(text => setSummary(text))
+        .catch(error => console.error("Text extraction failed", error));
+>>>>>>> c02104b98e52a00bc6e8306a9cafb68f60f186e5
     } catch (err) {
       setError('Error processing the file.');
     } finally {
@@ -131,8 +144,7 @@ const FileInput = () => {
           <input
             type="file"
             hidden
-//onChange={handleFileChange}
-onChange={extractText}
+            onChange={handleFileChange}
           />
         </Button>
 
@@ -178,7 +190,19 @@ onChange={extractText}
 
       {/* Summary */}
       {summary && (
-        <Box sx={{ marginTop: 3 }}>
+        <Box
+          sx={{
+            marginTop: 3,
+            padding: 3,
+            maxWidth: '80%',
+            backgroundColor: '#f4f4f4',
+            borderRadius: 2,
+            border: '1px solid #ddd',
+            boxSizing: 'border-box',
+            maxHeight: '60vh',  // Limit height to 60% of the viewport height
+            overflowY: 'auto',  // Allow scrolling when content overflows
+          }}
+        >
           <Typography variant="h6" color="textPrimary" gutterBottom>
             File Summary:
           </Typography>
