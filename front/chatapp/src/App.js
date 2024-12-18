@@ -13,7 +13,7 @@ const theme = createTheme({
       main: '#FF4081', // Accent color
     },
     background: {
-      default: '#F5F5F5', // Light background color
+      default: '#e3f2fd', // Light background color
     },
     text: {
       primary: '#333', // Dark text color
