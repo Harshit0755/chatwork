@@ -207,9 +207,8 @@ const FileInput = () => {
           {/* You can replace with your own GIF */}
           <CircularProgress size={50} sx={{ marginBottom: 2 }} />
           <Typography variant="body1" color="textPrimary">
-            Extracting text from PDF...
+          <h3 className='shimmer'>Extracting text from PDF...</h3>
           </Typography>
-          <h1 className='shimmer'>Shimmer Text...</h1>
         </Box>
       )}
 
@@ -272,7 +271,7 @@ const FileInput = () => {
               padding: 3,
               backgroundColor: 'white',
               borderRadius: 2,
-              border: '2px solid #ff679b', // Light gray border for the summary box
+              border: '2px solid #cc6699', // Light gray border for the summary box
               boxSizing: 'border-box',
               maxHeight: '60vh', // Limit height to 60% of the viewport height
               overflowY: 'auto', // Allow scrolling when content overflows
@@ -286,7 +285,7 @@ const FileInput = () => {
                 width: '10px',
               },
               '&::-webkit-scrollbar-thumb': {
-                backgroundColor: '#ff679b',
+                backgroundColor: '#cc6699',
                 borderRadius: '10px',
               },
               '&::-webkit-scrollbar-track': {
