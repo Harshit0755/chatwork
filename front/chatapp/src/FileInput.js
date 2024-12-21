@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Typography, Button, useTheme, Paper, CircularProgress, Alert, IconButton } from '@mui/material';
-import { CloudUpload as CloudUploadIcon, InsertDriveFile as FileIcon } from '@mui/icons-material';
+import { CloudUpload as CloudUploadIcon, InsertDriveFile as FileIcon, LineAxisOutlined } from '@mui/icons-material';
 import pdfToText from 'react-pdftotext';
 import './Shimmereffect.css';
+import axios from 'axios';
 
 const FileInput = () => {
   const [dragOver, setDragOver] = useState(false);
@@ -93,6 +94,35 @@ const FileInput = () => {
     setError(null); // Reset error state
   };
 
+  const openapicall= async () => {
+    try {
+      const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
+        model: "google/gemini-2.0-flash-thinking-exp:free",
+        messages: [
+          {
+            role: "user",
+            content: [
+              {
+                type: "text",
+                text: "What's in this image?"
+              },
+            ]
+          }
+        ]
+      }, {
+        headers: {
+          "Authorization": `Bearer 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`, // Use your actual API key
+          "Content-Type": "application/json"
+        }
+      });
+
+      console.log(response.data); // Print the response to the console
+
+    } catch (error) {
+      console.error('There has been a problem with your Axios operation:', error);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -149,7 +179,7 @@ const FileInput = () => {
             Select File
             <input type="file" hidden onChange={handleFileChange} />
           </Button>
-
+<input type='button' onClick={()=>openapicall()}></input>
           {file && (
             <Box sx={{ marginTop: 2 }}>
               <Typography variant="body1" color="textSecondary">
