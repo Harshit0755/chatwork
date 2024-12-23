@@ -58,15 +58,16 @@ const FileInput = () => {
 
     try {
       // Simulating a file processing or summarization API call
-      const fileContent = await processFile(file);
+/*       const fileContent = await processFile(file); */
       pdfToText(file)
-        .then(text => setSummary(text))
+        /* .then(text => setSummary(text)) */
+        .then(text => openapicall(text))
         .catch(error => console.error("Text extraction failed", error));
       /* setSummary(fileContent); */
-      await processFile(file);
+/*       await processFile(file);
       pdfToText(file)
         .then((text) => setSummary(text))
-        .catch((error) => console.error('Text extraction failed', error));
+        .catch((error) => console.error('Text extraction failed', error)); */
     } catch (err) {
       setError('Error processing the file.');
     } finally {
@@ -94,32 +95,39 @@ const FileInput = () => {
     setError(null); // Reset error state
   };
 
-  const openapicall= async () => {
+  function createMarkup(dirty) {
+    return { __html: dirty };
+  }
+
+  const openapicall= async (text) => {
     try {
+      setLoading(true)
       const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-        model: "google/gemini-2.0-flash-thinking-exp:free",
+        model: "meta-llama/llama-3.2-3b-instruct:free",
         messages: [
           {
             role: "user",
             content: [
               {
                 type: "text",
-                text: "What's in this image?"
+                text: `Can you summarize the following text- ${text} and format it in a way to display on webpage in html format. Give only the code in response without any other text, starting with the Doctype html tag and ending with </html> tag. Give me the response as plain text without the ${"```html"} thing`
               },
             ]
           }
         ]
       }, {
         headers: {
-          "Authorization": `Bearer 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`, // Use your actual API key
+          "Authorization": `Bearer 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`, // Use your actual API key
           "Content-Type": "application/json"
         }
       });
 
-      console.log(response.data); // Print the response to the console
+      setSummary(response.data.choices[0].message.content); // Print the response to the console
+      setLoading(false)
 
     } catch (error) {
       console.error('There has been a problem with your Axios operation:', error);
+      setLoading(false)
     }
   };
 
@@ -179,7 +187,6 @@ const FileInput = () => {
             Select File
             <input type="file" hidden onChange={handleFileChange} />
           </Button>
-<input type='button' onClick={()=>openapicall()}></input>
           {file && (
             <Box sx={{ marginTop: 2 }}>
               <Typography variant="body1" color="textSecondary">
@@ -248,7 +255,7 @@ const FileInput = () => {
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: '80%',
+            width: '100%',
             marginTop: 4,
             padding: 2,
           }}
@@ -328,7 +335,8 @@ const FileInput = () => {
               File Summary:
             </Typography>
             <Typography variant="body1" color="textSecondary">
-              {summary}
+            <div dangerouslySetInnerHTML={createMarkup(summary)} />
+{/*               {summary} */}
             </Typography>
           </Box>
         </Box>
