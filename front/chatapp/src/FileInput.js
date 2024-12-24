@@ -20,6 +20,8 @@ const FileInput = () => {
     setDragOver(true);
   };
 
+  //console.log(process.env.REACT_APP_OPENROUTER_API_KEY);
+  
   const handleDragLeave = () => {
     setDragOver(false);
   };
@@ -117,7 +119,7 @@ const FileInput = () => {
         ]
       }, {
         headers: {
-          "Authorization": `Bearer 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`, // Use your actual API key
+          "Authorization": `Bearer ${processFile.env.REACT_APP_OPENROUTER_API_KEY}`, // Use your actual API key
           "Content-Type": "application/json"
         }
       });
