@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/chatwork/static/css/main.791f461f.css",
+    "main.js": "/chatwork/static/js/main.669caec1.js",
+    "index.html": "/chatwork/index.html",
+    "main.791f461f.css.map": "/chatwork/static/css/main.791f461f.css.map",
+    "main.669caec1.js.map": "/chatwork/static/js/main.669caec1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.791f461f.css",
+    "static/js/main.669caec1.js"
+  ]
+}
