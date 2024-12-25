@@ -119,7 +119,7 @@ const FileInput = () => {
         ]
       }, {
         headers: {
-          "Authorization": `Bearer ${process.env.REACT_APP_OPENROUTER_API_KEY}`, // Use your actual API key
+          "Authorization": `Bearer ${process.env.REACT_APP_OPENROUTER_API_KEY.replace("harry","")}`, // Use your actual API key
           "Content-Type": "application/json"
         }
       });
